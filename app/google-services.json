@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "628345305661",
+    "project_id": "vooki-retail-fsm",
+    "storage_bucket": "vooki-retail-fsm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628345305661:android:cedf4abb56f37fc75e0854",
+        "android_client_info": {
+          "package_name": "com.vookiretailfsm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628345305661-khecup916pmkq3gehtoqa5cv255u8676.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXIRuI6KPRj6unlCAM5jgK4CI0mIUlIFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628345305661-khecup916pmkq3gehtoqa5cv255u8676.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
