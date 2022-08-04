@@ -4120,7 +4120,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener, LocationListener {
                                         realName=""
                                     }
 
-                                    openDialogPopupIMEI("Hi! $realName ($username)","Current Login ID has already been used from another mobile device. You are not allowed to " +
+//                                    openDialogPopupIMEI("Hi! $realName ($username)","Current Login ID has already been used from another mobile device. You are not allowed to " +
+//                                            "login from your current device due to IMEI BLOCKED! Please talk to Admin.")
+
+                                    openDialogPopupIMEI("Hi! $realName ($username)","The Current Device is already in use by another User ($realName). You are not allowed to " +
                                             "login from your current device due to IMEI BLOCKED! Please talk to Admin.")
                                 }else{
                                     openDialogPopup(loginResponse.message!!)
