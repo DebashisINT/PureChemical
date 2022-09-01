@@ -1365,6 +1365,8 @@ class ChatBotFragment : BaseFragment(), View.OnClickListener {
                                             for (i in 0 until shopDataList.size) {
                                                 AppDatabase.getDBInstance()!!.shopActivityDao().updateisUploaded(true, shopDataList[i].shop_id!!, AppUtils.changeAttendanceDateFormatToCurrent(shopDataList[i].visited_date!!), shopDataList[i].start_timestamp!!)
                                             }
+                                            //multivisit test
+                                            syncShopVisitImage(shopDataList)
                                         }
                                     }
                                 }

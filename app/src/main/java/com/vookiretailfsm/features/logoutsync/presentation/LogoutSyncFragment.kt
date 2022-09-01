@@ -3341,8 +3341,9 @@ class LogoutSyncFragment : BaseFragment(), View.OnClickListener {
                                                 for (i in 0 until shopDataList.size) {
                                                     AppDatabase.getDBInstance()!!.shopActivityDao().updateisUploaded(true, shopDataList[i].shop_id!!, AppUtils.changeAttendanceDateFormatToCurrent(shopDataList[i].visited_date!!), shopDataList[i].start_timestamp!!)
                                                 }
-
-                                                checkToRetryVisitButton()
+                                                //multivisit test
+                                                syncShopVisitImage(shopDataList)
+//                                                checkToRetryVisitButton()
                                             }
                                         }
 
