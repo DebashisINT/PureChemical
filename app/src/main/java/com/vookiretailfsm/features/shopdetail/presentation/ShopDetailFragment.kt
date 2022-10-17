@@ -307,6 +307,9 @@ class ShopDetailFragment : BaseFragment(), View.OnClickListener {
 
     private lateinit var whatsappp_no_TV : AppCustomEditText
 
+    private lateinit var total_visited_RL : RelativeLayout
+    private lateinit var view1 : View
+
 
 
 
@@ -340,6 +343,8 @@ class ShopDetailFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun initView(view: View) {
+        view1 = view.findViewById(R.id.view1)
+        total_visited_RL = view.findViewById(R.id.total_visited_RL)
         rl_assigned_to_dd = view.findViewById(R.id.rl_assigned_to_dd)
         assigned_to_dd_TV = view.findViewById(R.id.assigned_to_dd_TV)
         rl_assigned_to_pp = view.findViewById(R.id.rl_assigned_to_pp)
@@ -2314,7 +2319,14 @@ class ShopDetailFragment : BaseFragment(), View.OnClickListener {
             if (!TextUtils.isEmpty(shopId)) {
 
                 val sList = AppDatabase.getDBInstance()!!.addShopEntryDao().getShopByIdList(shopId)
+//                if(sList[0].totalVisitCount.equals("NULL")&& sList[0].totalVisitCount==null){
+//                    total_visited_value_TV.visibility = View.GONE
+//                    total_visited_RL.visibility = View.GONE
+//                }else{
+//                    total_visited_value_TV.text = " " + sList[0].totalVisitCount
+//                }
                 total_visited_value_TV.text = " " + sList[0].totalVisitCount
+
 //        total_visited_value_TV.text = " " + AppDatabase.getDBInstance()!!.addShopEntryDao().getShopByIdN(shopId).totalVisitCount
 //       last_visited_date_TV.text=" "+ AppDatabase.getDBInstance()!!.addShopEntryDao().getLastVisitedDate()
                 last_visited_date_TV.text = " " + AppDatabase.getDBInstance()!!.addShopEntryDao().getLastVisitedDate(shopId)
@@ -2654,6 +2666,14 @@ class ShopDetailFragment : BaseFragment(), View.OnClickListener {
                 }
                 else {
                     owner_contact_no_label_TV.text = getString(R.string.owner_contact_number)
+                }
+                if(sList[0].totalVisitCount==null){
+                    total_visited_RL.visibility = View.GONE
+                    view1.visibility = View.GONE
+                }
+                else{
+                    total_visited_RL.visibility = View.VISIBLE
+                    view1.visibility = View.VISIBLE
                 }
 
             }

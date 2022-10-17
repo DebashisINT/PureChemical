@@ -232,7 +232,8 @@ class CartFragment : BaseFragment(), View.OnClickListener {
                 try {
                     if (!TextUtils.isEmpty((mContext as DashboardActivity).rateList[adapterPosition]) && !TextUtils.isEmpty((mContext as DashboardActivity).qtyList[adapterPosition])) {
 
-                        val totalPrice = String.format("%.2f", ((mContext as DashboardActivity).rateList[adapterPosition].toDouble() * (mContext as DashboardActivity).qtyList[adapterPosition].toInt()))
+                        //val totalPrice = String.format("%.2f", ((mContext as DashboardActivity).rateList[adapterPosition].toDouble() * (mContext as DashboardActivity).qtyList[adapterPosition].toInt()))
+                        val totalPrice = String.format("%.2f", ((mContext as DashboardActivity).rateList[adapterPosition].toDouble() * (mContext as DashboardActivity).qtyList[adapterPosition].toDouble()))
                         (mContext as DashboardActivity).totalPrice[adapterPosition] = totalPrice.toDouble()
 
                     } else

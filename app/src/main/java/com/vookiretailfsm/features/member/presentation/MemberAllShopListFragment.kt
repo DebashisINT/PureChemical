@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import com.vookiretailfsm.CustomStatic
 import com.elvishew.xlog.XLog
 import com.pnikosis.materialishprogress.ProgressWheel
 import com.vookiretailfsm.R
@@ -19,7 +18,6 @@ import com.vookiretailfsm.app.AppDatabase
 import com.vookiretailfsm.app.NetworkConstant
 import com.vookiretailfsm.app.Pref
 import com.vookiretailfsm.app.SearchListener
-import com.vookiretailfsm.app.domain.AddShopDBModelEntity
 import com.vookiretailfsm.app.domain.MemberShopEntity
 import com.vookiretailfsm.app.types.FragType
 import com.vookiretailfsm.app.utils.AppUtils
@@ -180,6 +178,8 @@ class MemberAllShopListFragment : BaseFragment() {
                                 }
 
                                 if (response.shop_list != null && response.shop_list!!.size > 0) {
+                                    //if(shopId.equals(""))
+                                        response.shop_list = response.shop_list!!.distinctBy { it.shop_id } as ArrayList<TeamShopListDataModel>
                                     shop_list = response.shop_list
                                     initAdapter(response.shop_list!!)
                                 } else {
@@ -287,7 +287,6 @@ class MemberAllShopListFragment : BaseFragment() {
                         (mContext as DashboardActivity).showSnackMessage(getString(R.string.no_internet))
                     }
                     else{
-                            var tt=CustomStatic.ShopFeedBachHisUserId
                         (mContext as DashboardActivity).loadFragment(FragType.ShopFeedbackHisFrag, true, it)
                     }
                 }

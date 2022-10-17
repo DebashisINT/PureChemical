@@ -153,7 +153,6 @@ class NearByShopsListAdapter(context: Context, list: List<AddShopDBModelEntity>,
                     itemView.tv_type.text = "NA"
                     //itemView.ll_shop_type.visibility = View.GONE
                 }
-
                 if(Pref.isCollectioninMenuShow) {
                     itemView.ll_collection.visibility = View.VISIBLE
                     itemView.collection_view.visibility = View.VISIBLE
@@ -162,6 +161,21 @@ class NearByShopsListAdapter(context: Context, list: List<AddShopDBModelEntity>,
                     itemView.ll_collection.visibility = View.GONE
                     itemView.collection_view.visibility = View.GONE
                 }
+                /*Beat Name show*/
+                try{
+                    val shopBeatType = AppDatabase.getDBInstance()?.beatDao()?.getSingleItem(list[adapterPosition].beat_id)
+                    if(shopBeatType!=null && Pref.isShowBeatGroup && !TextUtils.isEmpty(shopBeatType.name)) {
+                        itemView.rl_beat_type.visibility = View.VISIBLE
+                        itemView.tv_beat_type.text = shopBeatType.name
+                    }
+                    else {
+                        itemView.tv_beat_type.text ="NA"
+                    }
+                }catch (ex:Exception){
+                   ex.printStackTrace()
+                }
+
+
 
                 itemView.ll_collection.setOnClickListener {
                     listener.onCollectionClick(adapterPosition)
@@ -830,6 +844,24 @@ class NearByShopsListAdapter(context: Context, list: List<AddShopDBModelEntity>,
                 //itemView.lowest_order_amount_tv.visibility=View.GONE
                 //itemView.high_value_month_tv.visibility=View.GONE
                 //itemView.low_value_month_tv.visibility=View.GONE
+
+                //Hardcoded for Pure chemical
+                itemView.ll_last_visit_age.visibility=View.GONE
+                itemView.ll_average_visit_time.visibility=View.GONE
+                itemView.ll_distance.visibility=View.GONE
+                itemView.order_amount_tv.visibility=View.GONE
+                itemView.highest_order_amount_tv.visibility=View.GONE
+                itemView.avg_order_amount_tv.visibility=View.GONE
+                itemView.lowest_order_amount_tv.visibility=View.GONE
+                itemView.high_value_month_tv.visibility=View.GONE
+                itemView.low_value_month_tv.visibility=View.GONE
+                itemView.tv_funnel_stage_header.visibility = View.GONE
+                itemView.tv_funnel_stage.visibility = View.GONE
+                itemView.rl_beat_type.visibility = View.GONE
+                itemView.rl_entity_type.visibility = View.GONE
+                itemView.rl_party_status.visibility = View.GONE
+                itemView.next_visit_date_RL.visibility = View.GONE
+                itemView.ll_shop_code.visibility = View.GONE
 
             } catch (e: Exception) {
                 e.printStackTrace()

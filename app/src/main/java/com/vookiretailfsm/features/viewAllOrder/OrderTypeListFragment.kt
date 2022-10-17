@@ -1115,7 +1115,7 @@ class OrderTypeListFragment : BaseFragment(), View.OnClickListener {
 
                     if (selectedProductList != null) {
                         for (i in (mContext as DashboardActivity).qtyList.indices) {
-                            if (/*(mContext as DashboardActivity).rateList[i].toDouble() != 0.00 &&*/ (mContext as DashboardActivity).qtyList[i].toInt() != 0) {
+                            if (/*(mContext as DashboardActivity).rateList[i].toDouble() != 0.00 &&*/ (mContext as DashboardActivity).qtyList[i].toDouble().toInt() != 0) {
 
                                 if (Pref.isRateNotEditable) {
                                     if (Pref.isRateOnline) {
