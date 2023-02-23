@@ -246,6 +246,7 @@ class AddShopFragment : BaseFragment(), View.OnClickListener {
     private var visitRemarksPopupWindow: PopupWindow? = null
     private lateinit var rl_select_beat: RelativeLayout
     private lateinit var tv_select_beat: AppCustomTextView
+    private lateinit var tv_beat_asterisk_mark:AppCustomTextView
     private lateinit var assign_to_shop_rl: RelativeLayout
     private lateinit var assign_to_shop_tv: AppCustomTextView
 
@@ -675,6 +676,7 @@ class AddShopFragment : BaseFragment(), View.OnClickListener {
         tv_select_purpose  = view.findViewById(R.id.tv_select_purpose)
         rl_select_beat = view.findViewById(R.id.rl_select_beat)
         tv_select_beat = view.findViewById(R.id.tv_select_beat)
+        tv_beat_asterisk_mark = view.findViewById(R.id.tv_beat_asterisk_mark)
         assign_to_shop_rl = view.findViewById(R.id.assign_to_shop_rl)
         assign_to_shop_tv = view.findViewById(R.id.assign_to_shop_tv)
 
@@ -718,7 +720,7 @@ class AddShopFragment : BaseFragment(), View.OnClickListener {
         ll_feedback =  view.findViewById(R.id.ll_feedback)
 
 
-
+        tv_select_beat.hint = "Select " + "${Pref.beatText}"
 
 
         assign_to_shop_tv.hint = getString(R.string.assign_to_hint_text) + " ${Pref.shopText}"
@@ -785,6 +787,14 @@ class AddShopFragment : BaseFragment(), View.OnClickListener {
         }
         else {
             rl_select_purpose.visibility = View.GONE
+        }
+
+        if(Pref.isShowBeatGroup) {
+            if (Pref.IsDistributorSelectionRequiredinAttendance)
+                tv_beat_asterisk_mark.visibility = View.VISIBLE
+        }
+            else {
+            tv_beat_asterisk_mark.visibility = View.GONE
         }
 
 
@@ -4662,10 +4672,20 @@ class AddShopFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun showBeatListDialog(list: ArrayList<BeatEntity>) {
-        BeatListDialog.newInstance(list) {
-            tv_select_beat.text = it.name
-            beatId = it.beat_id!!
-        }.show((mContext as DashboardActivity).supportFragmentManager, "")
+
+        if(Pref.IsAllBeatAvailableforParty){
+            BeatListDialog.newInstance(list) {
+                tv_select_beat.text = it.name
+                beatId = it.beat_id!!
+            }.show((mContext as DashboardActivity).supportFragmentManager, "")
+        }else{
+            var singleList = list.filter { Pref.SelectedBeatIDFromAttend.equals(it.beat_id) } as ArrayList
+
+            BeatListDialog.newInstance(singleList) {
+                tv_select_beat.text = it.name
+                beatId = it.beat_id!!
+            }.show((mContext as DashboardActivity).supportFragmentManager, "")
+        }
     }
 
     private var permissionUtils: PermissionUtils? = null
@@ -5452,6 +5472,7 @@ class AddShopFragment : BaseFragment(), View.OnClickListener {
             return
         }
 
+
         if (Pref.willMoreVisitUpdateOptional)
             showAddMoreInfoAlertDialog()
         else {
@@ -5514,6 +5535,13 @@ class AddShopFragment : BaseFragment(), View.OnClickListener {
             return
         }
 
+        if(Pref.IsDistributorSelectionRequiredinAttendance){
+            if(Pref.isShowBeatGroup && TextUtils.isEmpty(tv_select_beat.text.toString().trim())) {
+                (mContext as DashboardActivity).showSnackMessage(getString(R.string.error_enter_beat))
+                BaseActivity.isApiInitiated = false
+                return
+            }
+        }
 
         shopDataModel.visited = false
         shopDataModel.timeStamp = System.currentTimeMillis().toString()

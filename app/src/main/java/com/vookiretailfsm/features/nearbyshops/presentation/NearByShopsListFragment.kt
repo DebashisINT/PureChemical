@@ -169,7 +169,9 @@ class NearByShopsListFragment : BaseFragment(), View.OnClickListener {
         (mContext as DashboardActivity).setSearchListener(object : SearchListener {
             override fun onSearchQueryListener(query: String) {
                 if (query.isBlank()) {
-                    val allShopList = AppDatabase.getDBInstance()!!.addShopEntryDao().all
+                    //val allShopList = AppDatabase.getDBInstance()!!.addShopEntryDao().all
+                    val allShopList = AppDatabase.getDBInstance()!!.addShopEntryDao().getAllOwn(true)
+
                     getOwnShop(allShopList)
 
                     if (beatId.isNotEmpty())
@@ -180,7 +182,10 @@ class NearByShopsListFragment : BaseFragment(), View.OnClickListener {
                     if (mNearByShopsListAdapter != null)
                         mNearByShopsListAdapter.updateAdapter(list)
                 } else {
-                    val searchedList = AppDatabase.getDBInstance()!!.addShopEntryDao().getShopBySearchData(query)
+//                    val searchedList = AppDatabase.getDBInstance()!!.addShopEntryDao().getShopBySearchData(query)
+                    var searchedList = AppDatabase.getDBInstance()!!.addShopEntryDao().getShopBySearchDataNew(query)
+                    searchedList = searchedList.filter { it.isOwnshop==true }
+
                     getOwnShop(searchedList)
 
                     if (beatId.isNotEmpty())
@@ -643,7 +648,8 @@ class NearByShopsListFragment : BaseFragment(), View.OnClickListener {
         /*noShopAvailable.visibility = View.GONE
         nearByShopsList.visibility = View.VISIBLE*/
 
-        val allShopList = AppDatabase.getDBInstance()!!.addShopEntryDao().all
+        //val allShopList = AppDatabase.getDBInstance()!!.addShopEntryDao().all
+        val allShopList = AppDatabase.getDBInstance()!!.addShopEntryDao().getAllOwn(true)
         getOwnShop(allShopList)
 //        ( list as ArrayList).set()
 
@@ -1710,7 +1716,15 @@ class NearByShopsListFragment : BaseFragment(), View.OnClickListener {
                 shopDurationData.approximate_1st_billing_value = shopActivity.approximate_1st_billing_value!!
             else
                 shopDurationData.approximate_1st_billing_value = ""
-
+            //duration garbage fix
+            try{
+                if(shopDurationData.spent_duration!!.contains("-") || shopDurationData.spent_duration!!.length != 8)
+                {
+                    shopDurationData.spent_duration="00:00:10"
+                }
+            }catch (ex:Exception){
+                shopDurationData.spent_duration="00:00:10"
+            }
             shopDataList.add(shopDurationData)
         }
         else {
@@ -1792,7 +1806,15 @@ class NearByShopsListFragment : BaseFragment(), View.OnClickListener {
                     shopDurationData.approximate_1st_billing_value = shopActivity.approximate_1st_billing_value!!
                 else
                     shopDurationData.approximate_1st_billing_value = ""
-
+                //duration garbage fix
+                try{
+                    if(shopDurationData.spent_duration!!.contains("-") || shopDurationData.spent_duration!!.length != 8)
+                    {
+                        shopDurationData.spent_duration="00:00:10"
+                    }
+                }catch (ex:Exception){
+                    shopDurationData.spent_duration="00:00:10"
+                }
                 shopDataList.add(shopDurationData)
             }
         }

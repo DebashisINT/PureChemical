@@ -277,6 +277,16 @@ public class AddShopDBModelEntity {
     @ColumnInfo(name = "isShopDuplicate")
     private boolean isShopDuplicate = false;
 
+    @ColumnInfo(name = "isOwnshop")
+    private boolean isOwnshop = true;
+
+    public boolean isOwnshop() {
+        return isOwnshop;
+    }
+    public void setOwnshop(boolean ownshop) {
+        isOwnshop = ownshop;
+    }
+
     public boolean getIsShopDuplicate() {
         return isShopDuplicate;
     }

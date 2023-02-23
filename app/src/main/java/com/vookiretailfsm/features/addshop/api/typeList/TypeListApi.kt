@@ -5,6 +5,7 @@ import com.vookiretailfsm.app.NetworkConstant
 import com.vookiretailfsm.base.BaseResponse
 import com.vookiretailfsm.features.addshop.model.*
 import com.vookiretailfsm.features.addshop.model.assigntopplist.AssignToPPListResponseModel
+import com.vookiretailfsm.features.beatCustom.BeatTeamResponseModel
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
